@@ -27,6 +27,7 @@ library:
   source-dirs: 
   - src
   - src/parser
+  - src/interpreter
   - test
   - test/parser
 
