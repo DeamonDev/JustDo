@@ -1,1 +1,1 @@
-# just-do-core
+# Just do!
