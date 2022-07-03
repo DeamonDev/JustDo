@@ -1,0 +1,72 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           just-do-core
+version:        2.1.3.7
+description:    Please see the README on GitHub at <https://github.com/githubuser/just-do-core#readme>
+homepage:       https://github.com/deamondev/just-do-core#readme
+bug-reports:    https://github.com/deamondev/just-do-core/issues
+author:         Piotr Rudnicki
+maintainer:     deamondev@gmail.com.com
+copyright:      2022 Piotr Rudnicki
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/deamondev/just-do-core
+
+library
+  exposed-modules:
+      Expr
+      Lib
+      Parser
+      Spec
+      ParserSpec
+  other-modules:
+      Paths_just_do_core
+  hs-source-dirs:
+      src
+      src/parser
+      test
+      test/parser
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
+executable just-do-core-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_just_do_core
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , just-do-core
+  default-language: Haskell2010
+
+test-suite just-do-core-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      ParserSpec
+      Paths_just_do_core
+  hs-source-dirs:
+      test
+      test/parser
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , just-do-core
+  default-language: Haskell2010
