@@ -1,8 +1,8 @@
-module Spec where
+module Main where
 
 import Test.HUnit
-
 import qualified ParserSpec 
+--import qualified InterpreterSpec
 import Control.Monad
 
 main :: IO ()

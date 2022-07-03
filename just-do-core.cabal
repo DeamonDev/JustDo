@@ -29,16 +29,12 @@ library
       Lib
       Parser
       Interpreter
-      Spec
-      ParserSpec
   other-modules:
       Paths_just_do_core
   hs-source-dirs:
       src
       src/parser
       src/interpreter
-      test
-      test/parser
   build-depends:
       HUnit
     , base >=4.7 && <5
@@ -61,10 +57,12 @@ test-suite just-do-core-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      InterpreterSpec
       ParserSpec
       Paths_just_do_core
   hs-source-dirs:
       test
+      test/interpreter
       test/parser
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:

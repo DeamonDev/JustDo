@@ -28,9 +28,6 @@ library:
   - src
   - src/parser
   - src/interpreter
-  - test
-  - test/parser
-
 executables:
   just-do-core-exe:
     main:                Main.hs
@@ -46,8 +43,9 @@ tests:
   just-do-core-test:
     main:                Spec.hs
     source-dirs:  
-    - test 
-    - test/parser
+    - test
+    - test/interpreter
+    - test/parser 
     ghc-options:
     - -threaded
     - -rtsopts

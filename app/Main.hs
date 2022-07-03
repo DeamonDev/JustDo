@@ -9,7 +9,4 @@ flags :: [String]
 flags = ["--generate", "--token", "--generate", "--easteregg"]
 
 main :: IO ()
-main = 
-  do
-    let expr = parse flags 
-    execute expr
+main = putStrLn "justdo!"
