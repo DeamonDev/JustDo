@@ -6,4 +6,5 @@ data Expr = Token
           | Generate Expr
           | And Expr Expr
           | AddTodo String
+          | RemoveTodo Int
       deriving ( Show, Eq )

@@ -9,7 +9,7 @@ flags1 :: [String]
 flags1 = ["--generate", "--token", "--generate", "--easteregg"]
 
 flags2 :: [String]
-flags2 = ["--add", "change my life"]
+flags2 = ["--add", "change my life", "--rm", "661"]
 
 test1 :: Test
 test1 = TestCase $ do
@@ -21,7 +21,7 @@ test1 = TestCase $ do
 test2 :: Test 
 test2 = TestCase $ do 
   let expr = parse flags2 
-      expected = "todo: change my life"
+      expected = "todo: change my life And remove: 661"
   result <- execute expr 
   assertEqual "flag2" (Right expected) result
 

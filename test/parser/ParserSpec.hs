@@ -36,5 +36,12 @@ test7 =
         parse ["--add", "buy milk", "--add", "go to gym"]
     )
 
+test8 :: Test 
+test8 = 
+  TestCase
+    ( assertEqual "justdo --rm 666" (RemoveTodo 666) $ 
+        parse ["--rm", "666"]
+    )
+
 tests :: Test
-tests = TestList [test1, test2, test3, test4, test5, test6, test7]
+tests = TestList [test1, test2, test3, test4, test5, test6, test7, test8]
