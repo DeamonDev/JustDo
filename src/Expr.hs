@@ -5,4 +5,5 @@ data Expr = Token
           | EasterEgg
           | Generate Expr
           | And Expr Expr
+          | AddTodo String
       deriving ( Show, Eq )

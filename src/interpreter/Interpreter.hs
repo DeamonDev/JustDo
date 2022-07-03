@@ -11,6 +11,7 @@ import GHC.IO
 execute :: Expr -> IO (Either () String)
 execute (Generate Token) = return $ Right "Generated token 17"
 execute (Generate EasterEgg) = return $ Right "Generated easter egg: cats are fun"
+execute (AddTodo todoDescription) = return $ Right $ "todo: " ++ todoDescription
 execute (And e1 e2) = do
   s1 <- execute e1
   s2 <- execute e2
