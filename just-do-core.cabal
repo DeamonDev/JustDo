@@ -37,6 +37,7 @@ library
       src/interpreter
   build-depends:
       HUnit
+    , QuickCheck
     , base >=4.7 && <5
   default-language: Haskell2010
 
@@ -49,6 +50,7 @@ executable just-do-core-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       HUnit
+    , QuickCheck
     , base >=4.7 && <5
     , just-do-core
   default-language: Haskell2010
@@ -67,6 +69,7 @@ test-suite just-do-core-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       HUnit
+    , QuickCheck
     , base >=4.7 && <5
     , just-do-core
   default-language: Haskell2010

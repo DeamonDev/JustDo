@@ -4,9 +4,11 @@ import Lib
 
 import Parser 
 import Interpreter
+import System.Environment.Blank (getArgs)
 
-flags :: [String]
-flags = ["--generate", "--token", "--generate", "--easteregg"]
 
 main :: IO ()
-main = putStrLn "justdo!"
+main =
+  do 
+    args <- getArgs
+    putStrLn $ "The arguments are: " ++ show args
