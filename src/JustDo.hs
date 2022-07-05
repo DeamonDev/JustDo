@@ -5,7 +5,6 @@ module JustDo where
 import Database.SQLite.Simple
 import Database.SQLite.Simple.FromRow ()
 import Control.Applicative
-import TodoItem (insertTodo)
 import System.Environment.Blank (getArgs)
 import Parser
 import Interpreter

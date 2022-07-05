@@ -7,13 +7,13 @@ import Expr
 import GHC.IO
 import Database.SQLite.Simple
 import TodoItem
-import qualified System.IO.Error.Lens as TodoItem
 import Control.Lens
 import Data.List
+import DbConnection
 
 -- IO (Either () String) is our value type, since some computations should not be printed
 -- into terminal window (e.g. reading/writing to db)
-exec :: Expr -> Connection -> IO (Either () String)
+exec :: (DbConnection a) => Expr -> a -> IO (Either () String)
 exec ShowTodos conn = do
                     allTodos <- getAllTodos conn 
                     let 
