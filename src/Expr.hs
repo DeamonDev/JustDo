@@ -7,4 +7,5 @@ data Expr = Token
           | And Expr Expr
           | AddTodo String
           | RemoveTodo Int
+          | ShowTodos
       deriving ( Show, Eq )

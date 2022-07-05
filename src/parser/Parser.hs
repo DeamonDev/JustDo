@@ -5,7 +5,8 @@ import Expr
 
 parse :: [String] -> Expr
 parse ["--token"] = Token
-parse ["--easteregg"] = EasterEgg 
+parse ["--easteregg"] = EasterEgg
+parse ["--show"] = ShowTodos 
 parse [x, y] = case x of 
   "--generate" -> Generate $ parse [y]
   "--add"      -> AddTodo y

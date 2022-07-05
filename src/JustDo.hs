@@ -17,5 +17,7 @@ main = do
       expr = parse args
     conn <- open "todos.db"
     s <- exec expr conn
-    print s
+    _ <- case s of 
+        Right(output) -> putStr output 
+        Left(_) -> return ()
     close conn
