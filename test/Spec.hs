@@ -9,4 +9,3 @@ import Control.Monad
 main :: IO ()
 main = do
   void $ runTestTT ParserSpec.tests
-  void $ runTestTT InterpreterSpec.tests

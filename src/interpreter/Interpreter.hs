@@ -5,17 +5,21 @@ module Interpreter where
 
 import Expr
 import GHC.IO
+import Database.SQLite.Simple
+import TodoItem
 
 -- IO (Either () String) is our value type, since some computations should not be printed
 -- into terminal window (e.g. reading/writing to db)
-execute :: Expr -> IO (Either () String)
-execute (Generate Token) = return $ Right "Generated token 17"
-execute (Generate EasterEgg) = return $ Right "Generated easter egg: cats are fun"
-execute (AddTodo todoDescription) = return $ Right $ "todo: " ++ todoDescription
-execute (RemoveTodo todoId) = return $ Right $ "remove: " ++ show todoId
-execute (And e1 e2) = do
-  s1 <- execute e1
-  s2 <- execute e2
+exec :: Expr -> Connection -> IO (Either () String)
+exec (Generate Token) conn = return $ Right "Generated token 17"
+exec (Generate EasterEgg) conn = return $ Right "Generated easter egg: cats are fun"
+exec (AddTodo todoDescription) conn = do
+                                    _ <- insertTodo conn todoDescription
+                                    return $ Right $ "Inserted todo: " ++ todoDescription
+exec (RemoveTodo todoId) conn = return $ Right $ "remove: " ++ show todoId
+exec (And e1 e2) conn = do
+  s1 <- exec e1 conn
+  s2 <- exec e2 conn
   case (s1, s2) of
     (Left (), Left ()) -> return $ Left ()
     (Left (), Right s2') -> return $ Right s2'

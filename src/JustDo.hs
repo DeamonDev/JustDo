@@ -6,9 +6,16 @@ import Database.SQLite.Simple
 import Database.SQLite.Simple.FromRow ()
 import Control.Applicative
 import TodoItem (insertTodo)
+import System.Environment.Blank (getArgs)
+import Parser
+import Interpreter
 
 main :: IO ()
 main = do
+    args <- getArgs
+    let
+      expr = parse args
     conn <- open "todos.db"
-    _ <- insertTodo conn "stop fapping"
+    s <- exec expr conn
+    print s
     close conn
