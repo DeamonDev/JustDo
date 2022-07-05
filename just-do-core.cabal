@@ -41,6 +41,7 @@ library
     , QuickCheck
     , base >=4.7 && <5
     , lens
+    , sqlite-simple
   default-language: Haskell2010
 
 executable just-do-core-exe
@@ -56,6 +57,7 @@ executable just-do-core-exe
     , base >=4.7 && <5
     , just-do-core
     , lens
+    , sqlite-simple
   default-language: Haskell2010
 
 test-suite just-do-core-test
@@ -76,4 +78,5 @@ test-suite just-do-core-test
     , base >=4.7 && <5
     , just-do-core
     , lens
+    , sqlite-simple
   default-language: Haskell2010

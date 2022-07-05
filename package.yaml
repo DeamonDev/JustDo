@@ -24,6 +24,7 @@ dependencies:
 - HUnit
 - QuickCheck
 - lens
+- sqlite-simple
 
 library:
   source-dirs: 

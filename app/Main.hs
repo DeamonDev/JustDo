@@ -3,10 +3,8 @@ module Main where
 import Parser 
 import Interpreter
 import System.Environment.Blank (getArgs)
+import qualified JustDo
 
 
 main :: IO ()
-main =
-  do 
-    args <- getArgs
-    putStrLn $ "The arguments are: " ++ show args
+main = JustDo.main
