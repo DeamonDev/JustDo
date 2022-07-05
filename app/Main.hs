@@ -1,7 +1,5 @@
 module Main where
 
-import Lib
-
 import Parser 
 import Interpreter
 import System.Environment.Blank (getArgs)
