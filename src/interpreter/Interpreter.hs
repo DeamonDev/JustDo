@@ -15,7 +15,7 @@ exec (Generate Token) conn = return $ Right "Generated token 17"
 exec (Generate EasterEgg) conn = return $ Right "Generated easter egg: cats are fun"
 exec (AddTodo todoDescription) conn = do
                                     _ <- insertTodo conn todoDescription
-                                    return $ Right $ "Inserted todo: " ++ todoDescription
+                                    return $ Right $ "Insertedd todo: " ++ todoDescription
 exec (RemoveTodo todoId) conn = return $ Right $ "remove: " ++ show todoId
 exec (And e1 e2) conn = do
   s1 <- exec e1 conn
