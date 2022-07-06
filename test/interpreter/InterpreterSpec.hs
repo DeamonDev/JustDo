@@ -1,11 +1,31 @@
+{-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE FlexibleInstances #-}
 module InterpreterSpec where
 
 import Interpreter (exec)
 import Parser (parse)
 import Test.HUnit
 import Test.HUnit.Base (Test (TestCase), assertEqual)
+import DbConnection
+import TodoItem
+import Control.Lens
+import Data.List
 
-flags1 :: [String]
+type TestConnection = [TodoItem]
+
+instance DbConnection TestConnection where
+  lastRowId conn = do
+     let ids = map (^. TodoItem.id) conn
+     return $ maximum ids 
+
+  insertTodo conn s = do 
+                let ids = map (^. TodoItem.id) conn 
+                    newConn = conn ++ [TodoItem (maximum ids + 1) s False]
+                return ()
+
+  getAllTodos conn = return conn
+
+{- flags1 :: [String]
 flags1 = ["--generate", "--token", "--generate", "--easteregg"]
 
 flags2 :: [String]
@@ -26,4 +46,4 @@ test2 = TestCase $ do
   assertEqual "flag2" (Right expected) result
 
 tests :: Test
-tests = TestList [test1, test2]
+tests = TestList [test1, test2] -}

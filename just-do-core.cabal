@@ -41,6 +41,7 @@ library
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , containers
     , lens
     , sqlite-simple
   default-language: Haskell2010
@@ -56,6 +57,7 @@ executable just-do-core-exe
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , containers
     , just-do-core
     , lens
     , sqlite-simple
@@ -77,6 +79,7 @@ test-suite just-do-core-test
       HUnit
     , QuickCheck
     , base >=4.7 && <5
+    , containers
     , just-do-core
     , lens
     , sqlite-simple

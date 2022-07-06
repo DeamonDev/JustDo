@@ -25,6 +25,7 @@ dependencies:
 - QuickCheck
 - lens
 - sqlite-simple
+- containers
 
 library:
   source-dirs: 
