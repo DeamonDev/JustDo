@@ -10,6 +10,7 @@ class DbConnection a where
   lastRowId :: a -> IO Int
   insertTodo :: a -> String -> IO ()
   getAllTodos :: a -> IO [TodoItem]
+  markAsDone :: a -> Int -> IO ()
 
 instance DbConnection Connection where
   lastRowId conn = do
@@ -26,3 +27,8 @@ instance DbConnection Connection where
       (TodoItem (rowId + 1) desc False)
 
   getAllTodos conn = query_ conn "SELECT id, description, done FROM todo_items;" :: IO [TodoItem]
+
+  markAsDone conn idx = do 
+    execute 
+      conn 
+      "UPDATE todo_items SET done = 1 WHERE id = ?" (Only idx)

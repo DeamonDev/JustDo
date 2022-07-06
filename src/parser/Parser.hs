@@ -11,6 +11,7 @@ parse [x, y] = case x of
   "--generate" -> Generate $ parse [y]
   "--add"      -> AddTodo y
   "--rm"       -> RemoveTodo $ read y 
+  "--done"     -> Done $ read y 
 parse (x:y:ys) = case x of 
   "--generate" -> And (Generate $ parse [y]) (parse ys)
   "--add"      -> And (AddTodo y) (parse ys)

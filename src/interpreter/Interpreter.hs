@@ -7,7 +7,7 @@ module Interpreter where
 import Expr
 import GHC.IO
 import Database.SQLite.Simple
-import TodoItem
+import TodoItem hiding (markAsDone)
 import Control.Lens
 import Data.List
 import DbConnection
@@ -19,6 +19,9 @@ modifyDescs descs =
       zipped = zip xs descs
   in map (\(x, y) -> "[" ++ show x ++ "] " ++ y) zipped
 
+addColor :: [TodoItem] -> [TextColor]
+addColor = map (\t -> if (^. done) t then JGreen else JWhite)
+
 -- IO (Either () String) is our value type, since some computations should not be printed
 -- into terminal window (e.g. reading/writing to db)
 exec :: (DbConnection a) => Expr -> a -> IO ()
@@ -26,8 +29,8 @@ exec ShowTodos conn = do
                     allTodos <- getAllTodos conn 
                     let 
                       descriptions = modifyDescs $ map (^. TodoItem.title) allTodos
-                    --putStrLn $ intercalate "\n" descriptions
-                    Renderer.render $ map (\x -> (x, Renderer.JGreen)) descriptions
+                      colors = addColor allTodos
+                    Renderer.render $ zip descriptions colors
 
 exec (Generate Token) conn = putStrLn "Generated token 17"
 
@@ -38,6 +41,10 @@ exec (AddTodo todoDescription) conn = do
                                     putStrLn $ "Insertedd todo: " ++ todoDescription
                                     
 exec (RemoveTodo todoId) conn = putStrLn $ "remove: " ++ show todoId
+
+exec (Done todoId) conn = do 
+                        _ <- markAsDone conn todoId 
+                        putStrLn $ "updated todo: " ++ show todoId
 
 exec (And e1 e2) conn = do
   s1 <- exec e1 conn
