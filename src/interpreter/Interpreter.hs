@@ -11,13 +11,19 @@ import Control.Lens
 import Data.List
 import DbConnection
 
+modifyDescs :: [String] -> [String] 
+modifyDescs descs = 
+  let xs = take (length descs) [1..]
+      zipped = zip xs descs
+  in map (\(x, y) -> "[" ++ show x ++ "] " ++ y) zipped
+
 -- IO (Either () String) is our value type, since some computations should not be printed
 -- into terminal window (e.g. reading/writing to db)
 exec :: (DbConnection a) => Expr -> a -> IO (Either () String)
 exec ShowTodos conn = do
                     allTodos <- getAllTodos conn 
                     let 
-                      descriptions = map (^. TodoItem.title) allTodos
+                      descriptions = modifyDescs $ map (^. TodoItem.title) allTodos
                     return $ Right $ intercalate "\n" descriptions
 
 exec (Generate Token) conn = return $ Right "Generated token 17"
