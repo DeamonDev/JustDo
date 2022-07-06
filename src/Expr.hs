@@ -9,4 +9,5 @@ data Expr = Token
           | RemoveTodo Int
           | ShowTodos
           | Done Int
+          | Undone Int
       deriving ( Show, Eq )

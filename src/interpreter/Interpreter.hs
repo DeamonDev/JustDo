@@ -7,7 +7,7 @@ module Interpreter where
 import Expr
 import GHC.IO
 import Database.SQLite.Simple
-import TodoItem hiding (markAsDone)
+import TodoItem hiding (markAsUndone, markAsDone)
 import Control.Lens
 import Data.List
 import DbConnection
@@ -30,6 +30,7 @@ exec ShowTodos conn = do
                     let 
                       descriptions = modifyDescs $ map (^. TodoItem.title) allTodos
                       colors = addColor allTodos
+                    putStrLn $ show allTodos
                     Renderer.render $ zip descriptions colors
 
 exec (Generate Token) conn = putStrLn "Generated token 17"
@@ -45,6 +46,11 @@ exec (RemoveTodo todoId) conn = putStrLn $ "remove: " ++ show todoId
 exec (Done todoId) conn = do 
                         _ <- markAsDone conn todoId 
                         putStrLn $ "updated todo: " ++ show todoId
+                        exec ShowTodos conn
+exec (Undone todoId) conn = do 
+                        _ <- markAsUndone conn todoId 
+                        putStrLn $ "updated todo: " ++ show todoId 
+                        exec ShowTodos conn
 
 exec (And e1 e2) conn = do
   s1 <- exec e1 conn

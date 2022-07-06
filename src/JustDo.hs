@@ -13,6 +13,7 @@ import System.Console.ANSI
 
 main :: IO ()
 main = do
+    clearScreen
     args <- getArgs
     let
       expr = parse args

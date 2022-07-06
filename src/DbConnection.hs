@@ -11,6 +11,7 @@ class DbConnection a where
   insertTodo :: a -> String -> IO ()
   getAllTodos :: a -> IO [TodoItem]
   markAsDone :: a -> Int -> IO ()
+  markAsUndone :: a -> Int -> IO () 
 
 instance DbConnection Connection where
   lastRowId conn = do
@@ -32,3 +33,8 @@ instance DbConnection Connection where
     execute 
       conn 
       "UPDATE todo_items SET done = 1 WHERE id = ?" (Only idx)
+
+  markAsUndone conn idx = do 
+    execute 
+      conn 
+      "UPDATE todo_items SET done = 0 WHERE id = ?" (Only idx)
