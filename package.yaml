@@ -26,12 +26,14 @@ dependencies:
 - lens
 - sqlite-simple
 - containers
+- ansi-terminal
 
 library:
   source-dirs: 
   - src
   - src/parser
   - src/interpreter
+  - src/utils
 executables:
   just-do-core-exe:
     main:                Main.hs

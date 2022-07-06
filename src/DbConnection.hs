@@ -14,7 +14,7 @@ class DbConnection a where
 instance DbConnection Connection where
   lastRowId conn = do
     xs <- query_ conn "SELECT id, description, done FROM todo_items;" :: IO [TodoItem]
-    let ys = map (^. TodoItem.id) xs
+    let ys = if null xs then [0] else map (^. TodoItem.id) xs
     return $ last ys
 
   insertTodo conn desc = do

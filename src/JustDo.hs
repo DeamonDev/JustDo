@@ -8,6 +8,8 @@ import Control.Applicative
 import System.Environment.Blank (getArgs)
 import Parser
 import Interpreter
+import System.Console.ANSI
+
 
 main :: IO ()
 main = do
@@ -15,8 +17,6 @@ main = do
     let
       expr = parse args
     conn <- open "todos.db"
-    s <- exec expr conn
-    _ <- case s of 
-        Right(output) -> putStr output 
-        Left(_) -> return ()
+    execute_ conn "CREATE TABLE IF NOT EXISTS todo_items (id INTEGER PRIMARY KEY, description TEXT, done INTEGER);"
+    _ <- exec expr conn
     close conn

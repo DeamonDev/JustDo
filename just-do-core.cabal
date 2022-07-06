@@ -31,15 +31,18 @@ library
       TodoItem
       Parser
       Interpreter
+      Renderer
   other-modules:
       Paths_just_do_core
   hs-source-dirs:
       src
       src/parser
       src/interpreter
+      src/utils
   build-depends:
       HUnit
     , QuickCheck
+    , ansi-terminal
     , base >=4.7 && <5
     , containers
     , lens
@@ -56,6 +59,7 @@ executable just-do-core-exe
   build-depends:
       HUnit
     , QuickCheck
+    , ansi-terminal
     , base >=4.7 && <5
     , containers
     , just-do-core
@@ -78,6 +82,7 @@ test-suite just-do-core-test
   build-depends:
       HUnit
     , QuickCheck
+    , ansi-terminal
     , base >=4.7 && <5
     , containers
     , just-do-core

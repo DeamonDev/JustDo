@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+{-# LANGUAGE TupleSections #-}
 
 module Interpreter where
 
@@ -10,6 +11,7 @@ import TodoItem
 import Control.Lens
 import Data.List
 import DbConnection
+import Renderer
 
 modifyDescs :: [String] -> [String] 
 modifyDescs descs = 
@@ -19,28 +21,25 @@ modifyDescs descs =
 
 -- IO (Either () String) is our value type, since some computations should not be printed
 -- into terminal window (e.g. reading/writing to db)
-exec :: (DbConnection a) => Expr -> a -> IO (Either () String)
+exec :: (DbConnection a) => Expr -> a -> IO ()
 exec ShowTodos conn = do
                     allTodos <- getAllTodos conn 
                     let 
                       descriptions = modifyDescs $ map (^. TodoItem.title) allTodos
-                    return $ Right $ intercalate "\n" descriptions
+                    --putStrLn $ intercalate "\n" descriptions
+                    Renderer.render $ map (\x -> (x, Renderer.JGreen)) descriptions
 
-exec (Generate Token) conn = return $ Right "Generated token 17"
+exec (Generate Token) conn = putStrLn "Generated token 17"
 
-exec (Generate EasterEgg) conn = return $ Right "Generated easter egg: cats are fun"
+exec (Generate EasterEgg) conn = putStrLn "Generated easter egg: cats are fun"
 
 exec (AddTodo todoDescription) conn = do
                                     _ <- insertTodo conn todoDescription
-                                    return $ Right $ "Insertedd todo: " ++ todoDescription
+                                    putStrLn $ "Insertedd todo: " ++ todoDescription
                                     
-exec (RemoveTodo todoId) conn = return $ Right $ "remove: " ++ show todoId
+exec (RemoveTodo todoId) conn = putStrLn $ "remove: " ++ show todoId
 
 exec (And e1 e2) conn = do
   s1 <- exec e1 conn
   s2 <- exec e2 conn
-  case (s1, s2) of
-    (Left (), Left ()) -> return $ Left ()
-    (Left (), Right s2') -> return $ Right s2'
-    (Right s1', Left ()) -> return $ Right s1'
-    (Right s1', Right s2') -> return $ Right (s1' ++ " And " ++ s2')
+  return ()
