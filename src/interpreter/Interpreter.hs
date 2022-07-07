@@ -17,7 +17,7 @@ modifyDescs :: [String] -> [String]
 modifyDescs descs = 
   let xs = take (length descs) [1..]
       zipped = zip xs descs
-  in map (\(x, y) -> "[" ++ show x ++ "] " ++ y) zipped
+  in map (\(x, y) -> "[" ++ show x ++ "]\t" ++ y) zipped
 
 addColor :: [TodoItem] -> [TextColor]
 addColor = map (\t -> if (^. done) t then JGreen else JWhite)
@@ -39,8 +39,12 @@ exec (Generate EasterEgg) conn = putStrLn "Generated easter egg: cats are fun"
 exec (AddTodo todoDescription) conn = do
                                     _ <- insertTodo conn todoDescription
                                     putStrLn $ "Insertedd todo: " ++ todoDescription
+                                    exec ShowTodos conn
                                     
-exec (RemoveTodo todoId) conn = putStrLn $ "remove: " ++ show todoId
+exec (RemoveTodo todoId) conn = do  
+                        putStrLn $ "removed todo: " ++ show todoId 
+                        removeTodo conn todoId 
+                        exec ShowTodos conn
 
 exec (Done todoId) conn = do 
                         _ <- markAsDone conn todoId 
