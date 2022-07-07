@@ -5,6 +5,7 @@ import System.Console.ANSI
 data TextColor = JRed
                | JWhite
                | JGreen
+              deriving ( Show )
 
 render :: [(String, TextColor)] -> IO ()
 render [] = return ()
@@ -14,7 +15,9 @@ render [(s, c)] = case c of
       putStrLn s
       setSGR[SetColor Foreground Vivid System.Console.ANSI.White]
     JWhite -> do
+      setSGR [SetColor Foreground Vivid System.Console.ANSI.White]
       putStrLn s
+      setSGR [Reset]
     JGreen -> do
       setSGR [SetColor Foreground Vivid System.Console.ANSI.Green]
       putStrLn s

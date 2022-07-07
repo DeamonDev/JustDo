@@ -30,7 +30,6 @@ exec ShowTodos conn = do
                     let 
                       descriptions = modifyDescs $ map (^. TodoItem.title) allTodos
                       colors = addColor allTodos
-                    putStrLn $ show allTodos
                     Renderer.render $ zip descriptions colors
 
 exec (Generate Token) conn = putStrLn "Generated token 17"
